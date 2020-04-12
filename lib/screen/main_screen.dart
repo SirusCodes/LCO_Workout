@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lco_workout/animations/fade_slide.dart';
+import 'package:lco_workout/screen/sets_screen.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../widgets/cneubutton.dart';
-import '../widgets/fade.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -44,27 +45,27 @@ class _MainPageState extends State<MainPage> {
                 flex: 5,
                 child: Column(
                   children: <Widget>[
-                    FadeIn(
+                    FadeSlide(
                       delay: 1.5,
                       child: buildCard(context, "1"),
                       leftToRight: true,
                     ),
-                    FadeIn(
+                    FadeSlide(
                       delay: 1.7,
                       child: buildCard(context, "2"),
                       leftToRight: true,
                     ),
-                    FadeIn(
+                    FadeSlide(
                       delay: 2.0,
                       child: buildCard(context, "3"),
                       leftToRight: true,
                     ),
-                    FadeIn(
+                    FadeSlide(
                       delay: 2.3,
                       child: buildCard(context, "4"),
                       leftToRight: true,
                     ),
-                    FadeIn(
+                    FadeSlide(
                       delay: 2.6,
                       child: buildCard(context, "5"),
                       leftToRight: true,
@@ -73,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               Expanded(
-                child: FadeIn(
+                child: FadeSlide(
                   delay: 2.5,
                   leftToRight: false,
                   child: Padding(
@@ -81,12 +82,12 @@ class _MainPageState extends State<MainPage> {
                     child: SizedBox(
                       width: _size.size.width / 2 + 10,
                       child: CNeuButton(
-                        color: Color(0xff748287),
+                        color: Theme.of(context).buttonColor,
                         child: Shimmer.fromColors(
                           baseColor: Colors.white,
                           highlightColor: Theme.of(context).primaryColor,
                           child: Text(
-                            "Let's do it >",
+                            "Let's count sets >",
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .primaryTextTheme
@@ -94,7 +95,10 @@ class _MainPageState extends State<MainPage> {
                                 .copyWith(fontSize: 23.0),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => SetsScreen()));
+                        },
                       ),
                     ),
                   ),

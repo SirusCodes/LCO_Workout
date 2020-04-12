@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screen/main_page.dart';
+import 'screen/main_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Color(0xff8b9ca3),
+        buttonColor: Color(0xff748287),
         primaryTextTheme: TextTheme(
           display1: TextStyle(
             color: Colors.white,

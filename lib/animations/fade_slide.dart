@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-class FadeIn extends StatelessWidget {
+class FadeSlide extends StatelessWidget {
   final double delay;
   final Widget child;
   final bool leftToRight;
 
-  FadeIn({this.delay, this.child, this.leftToRight});
+  FadeSlide({this.delay, this.child, this.leftToRight});
 
   @override
   Widget build(BuildContext context) {
