@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/animations/pop_in.dart';
+import 'package:lco_workout/screen/exercise_screen.dart';
 import 'package:lco_workout/widgets/cneubutton.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -11,7 +12,8 @@ class SetsScreen extends StatefulWidget {
   _SetsScreenState createState() => _SetsScreenState();
 }
 
-class _SetsScreenState extends State<SetsScreen> with TickerProviderStateMixin {
+class _SetsScreenState extends State<SetsScreen>
+    with SingleTickerProviderStateMixin {
   int _count = 1;
 
   AnimationController _controller;
@@ -153,8 +155,12 @@ class _SetsScreenState extends State<SetsScreen> with TickerProviderStateMixin {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => SetsScreen()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ExerciseScreen(),
+                          ),
+                        );
                       },
                     ),
                   ),
