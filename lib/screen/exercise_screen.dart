@@ -8,7 +8,26 @@ class ExerciseScreen extends StatefulWidget {
   _ExerciseScreenState createState() => _ExerciseScreenState();
 }
 
-class _ExerciseScreenState extends State<ExerciseScreen> {
+class _ExerciseScreenState extends State<ExerciseScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+
+    _animation = Tween<double>(begin: 9, end: 0)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInExpo))
+          ..addListener(() {
+            setState(() {});
+          });
+
+    _controller.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +49,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                 ),
               ),
-              Expanded(child: Container()),
               Expanded(
                 flex: 4,
-                child: buildCard(context),
+                child: Stack(
+                  children: <Widget>[
+                    buildCard(context),
+                  ],
+                ),
               ),
               Expanded(child: Container()),
             ],
@@ -43,22 +65,28 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     );
   }
 
-  Padding buildCard(BuildContext context) {
+  Column buildCard(BuildContext context) {
     final _size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: SizedBox(
-        height: _size.shortestSide,
-        width: _size.shortestSide,
-        child: NeuCard(
-          curveType: CurveType.flat,
-          bevel: 8,
-          decoration: NeumorphicDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(8),
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: SizedBox(
+              height: _size.shortestSide,
+              width: _size.shortestSide,
+              child: NeuCard(
+                curveType: CurveType.flat,
+                bevel: _animation.value,
+                decoration: NeumorphicDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
