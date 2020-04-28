@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lco_workout/animations/fade_drop.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/animations/pop_in.dart';
 import 'package:lco_workout/screen/exercise_screen.dart';
@@ -17,7 +18,6 @@ class _SetsScreenState extends State<SetsScreen>
   int _count = 1;
 
   AnimationController _controller;
-  Animation _opacityAnimation, _translationAnimation;
 
   @override
   void initState() {
@@ -26,32 +26,15 @@ class _SetsScreenState extends State<SetsScreen>
       duration: Duration(milliseconds: 500),
     );
 
-    _opacityAnimation = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInExpo),
-    )
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _controller.stop();
-        }
-      });
     _controller.forward();
 
-    _translationAnimation = Tween(begin: -250.0, end: 0.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOutBack),
-    )
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _controller.stop();
-        }
-      });
-
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -75,18 +58,15 @@ class _SetsScreenState extends State<SetsScreen>
             ),
             Expanded(
               flex: 3,
-              child: Transform.translate(
-                offset: Offset(0, _translationAnimation.value),
-                child: Opacity(
-                  opacity: _opacityAnimation.value,
-                  child: Center(
-                    child: Text(
-                      _count.toString(),
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .display1
-                          .copyWith(fontSize: 150),
-                    ),
+              child: FadeDrop(
+                controller: _controller,
+                child: Center(
+                  child: Text(
+                    _count.toString(),
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .display1
+                        .copyWith(fontSize: 150),
                   ),
                 ),
               ),
