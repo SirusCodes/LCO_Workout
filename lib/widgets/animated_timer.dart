@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lco_workout/animations/fade_drop.dart';
 
 class AnimatedTimer extends StatefulWidget {
-  AnimatedTimer({Key key}) : super(key: key);
-
+  AnimatedTimer({Key key, this.size = 35}) : super(key: key);
+  final double size;
   @override
   _AnimatedTimerState createState() => _AnimatedTimerState();
 }
@@ -59,21 +59,21 @@ class _AnimatedTimerState extends State<AnimatedTimer>
           controller: _hundredController,
           child: Text(
             _hundred.toString(),
-            style: theme,
+            style: theme.copyWith(fontSize: widget.size),
           ),
         ),
         FadeDrop(
           controller: _tenController,
           child: Text(
             _ten.toString(),
-            style: theme,
+            style: theme.copyWith(fontSize: widget.size),
           ),
         ),
         FadeDrop(
           controller: _unitController,
           child: Text(
             _unit.toString(),
-            style: theme,
+            style: theme.copyWith(fontSize: widget.size),
           ),
         ),
         AnimatedOpacity(
@@ -81,7 +81,7 @@ class _AnimatedTimerState extends State<AnimatedTimer>
           opacity: 1.0,
           child: Text(
             "s",
-            style: theme,
+            style: theme.copyWith(fontSize: widget.size),
           ),
         ),
       ],
