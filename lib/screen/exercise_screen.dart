@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:neumorphic/neumorphic.dart';
+import 'package:lco_workout/widgets/main_card.dart';
 
 class ExerciseScreen extends StatefulWidget {
   ExerciseScreen({Key key}) : super(key: key);
@@ -11,19 +11,12 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  Animation _animation;
 
   @override
   void initState() {
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 700));
-
-    _animation = Tween<double>(begin: 9, end: 0)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInExpo))
-          ..addListener(() {
-            setState(() {});
-          });
 
     _controller.forward();
   }
@@ -51,42 +44,13 @@ class _ExerciseScreenState extends State<ExerciseScreen>
               ),
               Expanded(
                 flex: 4,
-                child: Stack(
-                  children: <Widget>[
-                    buildCard(context),
-                  ],
-                ),
+                child: MainCard(),
               ),
               Expanded(child: Container()),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Column buildCard(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: SizedBox(
-              height: _size.shortestSide,
-              width: _size.shortestSide,
-              child: NeuCard(
-                curveType: CurveType.flat,
-                bevel: _animation.value,
-                decoration: NeumorphicDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
