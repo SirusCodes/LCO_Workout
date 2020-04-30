@@ -13,7 +13,7 @@ class AnimatedTimer extends StatefulWidget {
 class _AnimatedTimerState extends State<AnimatedTimer>
     with TickerProviderStateMixin {
   Timer _timer;
-  int _start = 211;
+  int _start = 10;
   int _unit = 0, _ten = 0, _hundred = 0;
 
   AnimationController _unitController, _tenController, _hundredController;
@@ -51,7 +51,14 @@ class _AnimatedTimerState extends State<AnimatedTimer>
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).primaryTextTheme.display1;
+    var theme = Theme.of(context)
+        .primaryTextTheme
+        .display1
+        .copyWith(fontSize: widget.size);
+
+    if (_hundred == 0 && _ten == 0 && _unit <= 5)
+      theme = theme.copyWith(color: Color(0xFFff6961));
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -59,21 +66,21 @@ class _AnimatedTimerState extends State<AnimatedTimer>
           controller: _hundredController,
           child: Text(
             _hundred.toString(),
-            style: theme.copyWith(fontSize: widget.size),
+            style: theme,
           ),
         ),
         FadeDrop(
           controller: _tenController,
           child: Text(
             _ten.toString(),
-            style: theme.copyWith(fontSize: widget.size),
+            style: theme,
           ),
         ),
         FadeDrop(
           controller: _unitController,
           child: Text(
             _unit.toString(),
-            style: theme.copyWith(fontSize: widget.size),
+            style: theme,
           ),
         ),
         AnimatedOpacity(
@@ -81,7 +88,7 @@ class _AnimatedTimerState extends State<AnimatedTimer>
           opacity: 1.0,
           child: Text(
             "s",
-            style: theme.copyWith(fontSize: widget.size),
+            style: theme,
           ),
         ),
       ],

@@ -1,7 +1,22 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'screen/main_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => MyApp(),
+    ),
+  );
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override

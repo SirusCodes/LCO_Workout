@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animations/fade_drop.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/animations/pop_in.dart';
@@ -39,20 +40,27 @@ class _SetsScreenState extends State<SetsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context);
+    final _size = MediaQuery.of(context).size;
+
+    final _heightFact = _size.height / 10;
     return Scaffold(
       body: Container(
         color: Theme.of(context).primaryColor,
         child: Column(
           children: <Widget>[
-            Expanded(child: Container()),
             Expanded(
+              flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "How many sets would you like to do?",
-                  style: Theme.of(context).primaryTextTheme.display1,
-                  textAlign: TextAlign.center,
+                child: Center(
+                  child: Text(
+                    "How many sets would you like to do?",
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .display1
+                        .copyWith(fontSize: _heightFact * .5),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
@@ -66,7 +74,7 @@ class _SetsScreenState extends State<SetsScreen>
                     style: Theme.of(context)
                         .primaryTextTheme
                         .display1
-                        .copyWith(fontSize: 150),
+                        .copyWith(fontSize: _heightFact * 3),
                   ),
                 ),
               ),
@@ -82,7 +90,7 @@ class _SetsScreenState extends State<SetsScreen>
                       child: buildButton(
                         context,
                         text: "-",
-                        size: 60,
+                        size: _heightFact,
                         onPressed: () {
                           setState(() {
                             if (_count != 1) {
@@ -98,7 +106,7 @@ class _SetsScreenState extends State<SetsScreen>
                       child: buildButton(
                         context,
                         text: "+",
-                        size: 40,
+                        size: _heightFact * .6,
                         onPressed: () {
                           setState(() {
                             _controller.reset();
@@ -119,19 +127,20 @@ class _SetsScreenState extends State<SetsScreen>
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: SizedBox(
-                    width: _size.size.width / 2 + 10,
+                    width: _size.width / 2 + 10,
                     child: CNeuButton(
-                      color: Theme.of(context).buttonColor,
                       child: Shimmer.fromColors(
                         baseColor: Colors.white,
                         highlightColor: Theme.of(context).buttonColor,
-                        child: Text(
-                          "Let's do it >",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .display1
-                              .copyWith(fontSize: 23.0),
+                        child: Center(
+                          child: Text(
+                            "Let's do it >",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .display1
+                                .copyWith(fontSize: _heightFact * .4),
+                          ),
                         ),
                       ),
                       onPressed: () {
@@ -164,8 +173,7 @@ class _SetsScreenState extends State<SetsScreen>
             .display1
             .copyWith(fontSize: size, color: Colors.white),
       ),
-      shape: BoxShape.circle,
-      color: Theme.of(context).buttonColor,
+      shape: NeumorphicBoxShape.circle(),
       onPressed: onPressed,
     );
   }

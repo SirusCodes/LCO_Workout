@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:simple_animations/simple_animations.dart';
 import '../widgets/cneubutton.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,14 +14,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final tween = MultiTrackTween([
-    Track("fade").add(Duration(seconds: 1), Tween(begin: 0.0, end: 1.0)),
-    Track("translate").add(Duration(seconds: 1), Tween(begin: 130.0, end: 0.0))
-  ]);
-
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context);
+    final _size = MediaQuery.of(context).size;
+
+    final height = _size.height / 10;
+
     return Scaffold(
       body: Container(
         color: Theme.of(context).primaryColor,
@@ -29,15 +27,20 @@ class _MainPageState extends State<MainPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Expanded(child: Container()),
+              // Expanded(child: Container()),
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Let's see what we have for today",
-                    style: Theme.of(context).primaryTextTheme.display1,
-                    textAlign: TextAlign.center,
+                  child: Center(
+                    child: Text(
+                      "Let's see what we have for today",
+                      style: Theme.of(context)
+                          .primaryTextTheme
+                          .display1
+                          .copyWith(fontSize: height * .5),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
@@ -47,27 +50,27 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     FadeSlide(
                       delay: 1.5,
-                      child: buildCard(context, "1"),
+                      child: buildCard(context, "1", _size),
                       leftToRight: true,
                     ),
                     FadeSlide(
                       delay: 1.7,
-                      child: buildCard(context, "2"),
+                      child: buildCard(context, "2", _size),
                       leftToRight: true,
                     ),
                     FadeSlide(
                       delay: 2.0,
-                      child: buildCard(context, "3"),
+                      child: buildCard(context, "3", _size),
                       leftToRight: true,
                     ),
                     FadeSlide(
                       delay: 2.3,
-                      child: buildCard(context, "4"),
+                      child: buildCard(context, "4", _size),
                       leftToRight: true,
                     ),
                     FadeSlide(
                       delay: 2.6,
-                      child: buildCard(context, "5"),
+                      child: buildCard(context, "5", _size),
                       leftToRight: true,
                     ),
                   ],
@@ -78,28 +81,26 @@ class _MainPageState extends State<MainPage> {
                   delay: 2.5,
                   leftToRight: false,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: SizedBox(
-                      width: _size.size.width / 2 + 10,
-                      child: CNeuButton(
-                        color: Theme.of(context).buttonColor,
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.white,
-                          highlightColor: Theme.of(context).buttonColor,
+                    padding: const EdgeInsets.all(15.0),
+                    child: CNeuButton(
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.white,
+                        highlightColor: Theme.of(context).buttonColor,
+                        child: Center(
                           child: Text(
                             "Let's count sets >",
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .display1
-                                .copyWith(fontSize: 23.0),
+                                .copyWith(fontSize: height * .4),
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => SetsScreen()));
-                        },
                       ),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => SetsScreen()));
+                      },
                     ),
                   ),
                 ),
@@ -111,7 +112,8 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Padding buildCard(BuildContext context, String title) {
+  Padding buildCard(BuildContext context, String title, Size size) {
+    final _size = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: NeuCard(
@@ -121,10 +123,14 @@ class _MainPageState extends State<MainPage> {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: ListTile(
-          title: Text(
-            title,
-            style: Theme.of(context).primaryTextTheme.display1,
+        child: SizedBox(
+          height: _size / 13,
+          width: size.width,
+          child: Center(
+            child: Text(
+              title,
+              style: Theme.of(context).primaryTextTheme.display1,
+            ),
           ),
         ),
       ),

@@ -23,6 +23,7 @@ class _ExerciseScreenState extends State<ExerciseScreen>
 
   @override
   Widget build(BuildContext context) {
+    final _heightFact = MediaQuery.of(context).size.height / 10;
     return Scaffold(
       body: Container(
         color: Theme.of(context).primaryColor,
@@ -30,14 +31,22 @@ class _ExerciseScreenState extends State<ExerciseScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Expanded(child: Container()),
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[Image.asset("assets/logo.png")],
+                ),
+              ),
               Expanded(
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Let's get started",
-                    style: Theme.of(context).primaryTextTheme.display1,
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .display1
+                        .copyWith(fontSize: _heightFact * .5),
                     textAlign: TextAlign.center,
                   ),
                 ),
