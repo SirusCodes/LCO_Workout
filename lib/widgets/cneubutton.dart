@@ -47,8 +47,8 @@ class _CNeuButtonState extends State<CNeuButton> {
       onTapCancel: _tapUp,
       onTap: widget.onPressed,
       child: NeuCard(
-        bevel: 7,
-        curveType: _isPressed ? CurveType.convex : CurveType.concave,
+        bevel: _isPressed ? 5 : 16,
+        curveType: _isPressed ? CurveType.flat : CurveType.emboss,
         padding: widget.padding,
         child: widget.child,
         alignment: Alignment.center,

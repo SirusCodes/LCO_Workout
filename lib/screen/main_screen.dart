@@ -85,7 +85,7 @@ class _MainPageState extends State<MainPage> {
                         color: Theme.of(context).buttonColor,
                         child: Shimmer.fromColors(
                           baseColor: Colors.white,
-                          highlightColor: Theme.of(context).primaryColor,
+                          highlightColor: Theme.of(context).buttonColor,
                           child: Text(
                             "Let's count sets >",
                             textAlign: TextAlign.center,

@@ -91,7 +91,7 @@ class _MainCardState extends State<MainCard>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                baseColor: Colors.white,
+                baseColor: Theme.of(context).buttonColor,
                 highlightColor: Theme.of(context).primaryColor,
               )),
         ),

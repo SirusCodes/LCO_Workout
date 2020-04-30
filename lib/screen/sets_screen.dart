@@ -124,7 +124,7 @@ class _SetsScreenState extends State<SetsScreen>
                       color: Theme.of(context).buttonColor,
                       child: Shimmer.fromColors(
                         baseColor: Colors.white,
-                        highlightColor: Theme.of(context).primaryColor,
+                        highlightColor: Theme.of(context).buttonColor,
                         child: Text(
                           "Let's do it >",
                           textAlign: TextAlign.center,
@@ -162,7 +162,7 @@ class _SetsScreenState extends State<SetsScreen>
         style: Theme.of(context)
             .primaryTextTheme
             .display1
-            .copyWith(fontSize: size),
+            .copyWith(fontSize: size, color: Colors.white),
       ),
       shape: BoxShape.circle,
       color: Theme.of(context).buttonColor,
