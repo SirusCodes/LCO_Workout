@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lco_workout/animation_locator.dart';
+import 'package:lco_workout/enum/card_status.dart';
+import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -13,20 +16,25 @@ class MainCard extends StatefulWidget {
 
 class _MainCardState extends State<MainCard>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _mainCardAnimation;
-  Animation<double> _timerAnimation;
-  Animation<double> _restTextAnimation;
+  Animation<double> mainCardAnimation;
+  Animation<double> timerAnimation;
+  Animation<double> restTextAnimation;
 
   static Size _size;
+  final animation = locator<AnimationGetIt>();
+
   @override
   void initState() {
     super.initState();
-
-    _controller =
+    animation.editList();
+    animation.controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
+  }
 
-    _controller.forward();
+  @override
+  void dispose() {
+    animation.controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,21 +42,21 @@ class _MainCardState extends State<MainCard>
     super.didChangeDependencies();
     _size = MediaQuery.of(context).size;
 
-    _mainCardAnimation = Tween<double>(begin: 9, end: 0)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInExpo))
+    mainCardAnimation = Tween<double>(begin: 0, end: 9).animate(
+        CurvedAnimation(parent: animation.controller, curve: Curves.easeInExpo))
+      ..addListener(() {
+        setState(() {});
+      });
+
+    timerAnimation =
+        Tween<double>(begin: (_size.shortestSide / 2) - 40, end: 40).animate(
+            CurvedAnimation(parent: animation.controller, curve: Curves.easeIn))
           ..addListener(() {
             setState(() {});
           });
 
-    _timerAnimation =
-        Tween<double>(begin: 40, end: (_size.shortestSide / 2) - 40)
-            .animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn))
-              ..addListener(() {
-                setState(() {});
-              });
-
-    _restTextAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+    restTextAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(parent: animation.controller, curve: Curves.easeIn));
   }
 
   @override
@@ -63,13 +71,13 @@ class _MainCardState extends State<MainCard>
               height: _size.shortestSide,
               width: _size.shortestSide,
               child: AnimatedBuilder(
-                animation: _controller,
+                animation: locator<AnimationGetIt>().controller,
                 builder: (context, child) {
                   return child;
                 },
                 child: NeuCard(
                   curveType: CurveType.flat,
-                  bevel: _mainCardAnimation.value,
+                  bevel: mainCardAnimation.value,
                   decoration: NeumorphicDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(8),
@@ -79,13 +87,16 @@ class _MainCardState extends State<MainCard>
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: FadeTransition(
-              opacity: _restTextAnimation,
+        if (animation.status != CardStatus.end)
+          Align(
+            alignment: Alignment.topCenter,
+            child: FadeTransition(
+              opacity: restTextAnimation,
               child: Shimmer.fromColors(
                 child: Text(
-                  "Take some rest!",
+                  animation.status == CardStatus.start
+                      ? "Let's Start!!!"
+                      : "Take some rest!",
                   style: TextStyle(
                     fontSize: _size.width / 8,
                     fontWeight: FontWeight.bold,
@@ -93,18 +104,20 @@ class _MainCardState extends State<MainCard>
                 ),
                 baseColor: Theme.of(context).buttonColor,
                 highlightColor: Theme.of(context).primaryColor,
-              )),
-        ),
-        AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            return child;
-          },
-          child: Positioned(
-            top: _timerAnimation.value,
-            child: AnimatedTimer(size: _timerAnimation.value),
+              ),
+            ),
           ),
-        ),
+        if (animation.status != CardStatus.end)
+          AnimatedBuilder(
+            animation: locator<AnimationGetIt>().controller,
+            builder: (context, child) {
+              return child;
+            },
+            child: Positioned(
+              top: timerAnimation.value,
+              child: AnimatedTimer(size: timerAnimation.value),
+            ),
+          ),
       ],
     );
   }

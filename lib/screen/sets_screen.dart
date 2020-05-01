@@ -146,9 +146,7 @@ class _SetsScreenState extends State<SetsScreen>
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (_) => ExerciseScreen(),
-                          ),
+                          MaterialPageRoute(builder: (_) => ExerciseScreen()),
                         );
                       },
                     ),

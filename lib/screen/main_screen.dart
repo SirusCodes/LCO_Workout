@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/constants.dart';
+import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:shimmer/shimmer.dart';
@@ -17,7 +19,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<String> exerciseList = [], rawList = [];
+  List<String> exerciseList = [];
+
+  final _animation = locator<AnimationGetIt>();
   @override
   void initState() {
     super.initState();
@@ -108,8 +112,10 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => SetsScreen()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => SetsScreen()),
+                        );
                       },
                     ),
                   ),
@@ -151,6 +157,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void getList() {
+    List<String> rawList = [];
     Random random = Random();
     int count = 5, i;
     while (count > 0) {
@@ -163,5 +170,7 @@ class _MainPageState extends State<MainPage> {
         count--;
       }
     }
+    _animation.rawList = rawList;
+    _animation.exerciseList = exerciseList;
   }
 }

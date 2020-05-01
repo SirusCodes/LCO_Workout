@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_drop.dart';
+import 'package:lco_workout/get_it/animation_getit.dart';
 
 class AnimatedTimer extends StatefulWidget {
   AnimatedTimer({Key key, this.size = 35}) : super(key: key);
@@ -12,9 +14,8 @@ class AnimatedTimer extends StatefulWidget {
 
 class _AnimatedTimerState extends State<AnimatedTimer>
     with TickerProviderStateMixin {
+  final _animation = locator<AnimationGetIt>();
   Timer _timer;
-  int _start = 10;
-  int _unit = 0, _ten = 0, _hundred = 0;
 
   AnimationController _unitController, _tenController, _hundredController;
 
@@ -36,7 +37,6 @@ class _AnimatedTimerState extends State<AnimatedTimer>
     _unitController.forward();
     _tenController.forward();
     _hundredController.forward();
-    _seperateStart();
     _startTimer();
   }
 
@@ -56,8 +56,14 @@ class _AnimatedTimerState extends State<AnimatedTimer>
         .display1
         .copyWith(fontSize: widget.size);
 
-    if (_hundred == 0 && _ten == 0 && _unit <= 5)
+    if (_animation.hundred == 0 && _animation.ten == 0 && _animation.unit <= 5)
       theme = theme.copyWith(color: Color(0xFFff6961));
+
+    if (_animation.hundred == 0 &&
+        _animation.ten == 0 &&
+        _animation.unit == 0) {
+      _animation.nextTime();
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -65,21 +71,21 @@ class _AnimatedTimerState extends State<AnimatedTimer>
         FadeDrop(
           controller: _hundredController,
           child: Text(
-            _hundred.toString(),
+            _animation.hundred.toString(),
             style: theme,
           ),
         ),
         FadeDrop(
           controller: _tenController,
           child: Text(
-            _ten.toString(),
+            _animation.ten.toString(),
             style: theme,
           ),
         ),
         FadeDrop(
           controller: _unitController,
           child: Text(
-            _unit.toString(),
+            _animation.unit.toString(),
             style: theme,
           ),
         ),
@@ -96,39 +102,32 @@ class _AnimatedTimerState extends State<AnimatedTimer>
   }
 
   void _startTimer() {
+    _animation.seperateTime();
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(oneSec, (Timer timer) {
       setState(() {
-        if (_unit < 1) {
-          _unit = 9;
+        if (_animation.unit < 1) {
+          _animation.unit = 9;
           _unitController.reset();
           _unitController.forward();
-          if (_ten < 1) {
-            _ten = 9;
-            _hundred--;
+          if (_animation.ten < 1) {
+            _animation.ten = 9;
+            _animation.hundred--;
             _hundredController.reset();
             _tenController.reset();
             _hundredController.forward();
             _tenController.forward();
           } else {
-            _ten--;
+            _animation.ten--;
             _tenController.reset();
             _tenController.forward();
           }
         } else {
-          _unit--;
+          _animation.unit--;
           _unitController.reset();
           _unitController.forward();
         }
       });
     });
-  }
-
-  void _seperateStart() {
-    _unit = _start % 10;
-    _start = _start ~/ 10;
-    _ten = _start % 10;
-    _start = _start ~/ 10;
-    _hundred = _start % 10;
   }
 }
