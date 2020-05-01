@@ -3,7 +3,7 @@ const List<String> images = [
   "back_streaching.png",
   "ball_plank.png",
   "declined_crunches.png",
-  "dumbel_curls.png",
+  "dumbell_curls.png",
   "inclined_bench_press.png",
   "jackknife_sit_ups.png",
   "push_ups.png",

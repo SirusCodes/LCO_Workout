@@ -5,15 +5,18 @@ import 'package:lco_workout/enum/card_status.dart';
 class AnimationGetIt with ChangeNotifier {
   AnimationController controller;
 
-  int unit = 0, ten = 0, hundred = 0, _time = 3;
+  int unit = 0, ten = 0, hundred = 0, _time = 3, setNum;
 
   List<String> exerciseList = [], rawList = [];
-  Queue _queue = Queue();
+  Queue _nextQueue = Queue();
 
   CardStatus status = CardStatus.start;
 
   String nextExer = "";
+  String imgExer = "";
+  String currentExer = "";
   int nextExerInt = 0;
+  int imgExerInt = 0;
 
   void seperateTime() {
     unit = _time % 10;
@@ -24,7 +27,7 @@ class AnimationGetIt with ChangeNotifier {
   }
 
   void nextTime() {
-    switch (_queue.first) {
+    switch (_nextQueue.first) {
       case 'end':
         status = CardStatus.end;
         controller.reverse();
@@ -32,38 +35,50 @@ class AnimationGetIt with ChangeNotifier {
       case 'break':
         status = CardStatus.progress;
         controller.reverse();
-        _time = 4;
-        nextExer = exerciseList[++nextExerInt];
-        notifyListeners();
+        _time = 1;
         break;
       default:
         status = CardStatus.progress;
+        if (imgExerInt <= 4) imgExer = rawList[imgExerInt++];
+        currentExer = nextExer;
+        if (nextExerInt < 4) {
+          nextExer = exerciseList[++nextExerInt];
+          notifyListeners();
+        } else {
+          nextExer = "Completed!!!";
+          notifyListeners();
+        }
         controller.forward();
-        _time = 6;
+        _time = 2;
         break;
     }
-    _queue.removeFirst();
+    _nextQueue.removeFirst();
     seperateTime();
   }
 
   void editList() {
-    List<String> _rawList = List<String>.from(rawList);
-
-    _queue.clear();
+    _nextQueue.clear();
+    // sets img to start position
+    imgExerInt = 0;
+    imgExer = rawList[imgExerInt];
+    // sets next to start position
     nextExerInt = 0;
     nextExer = exerciseList[nextExerInt];
     // if someone starts the page then he will get a 3s wait
     _time = 3;
     status = CardStatus.start;
     // building queue
-    for (var i = 0; i < 9; i++) {
-      if (i.isEven) {
-        _queue.add(_rawList.first);
-        _rawList.removeAt(0);
-      } else {
-        _queue.add("break");
+    for (var j = 0; j < setNum; j++) {
+      List<String> _rawList = List<String>.from(rawList);
+      for (var i = 0; i < 9; i++) {
+        if (i.isEven) {
+          _nextQueue.add(_rawList.first);
+          _rawList.removeAt(0);
+        } else {
+          _nextQueue.add("break");
+        }
       }
     }
-    _queue.add("end");
+    _nextQueue.add("end");
   }
 }

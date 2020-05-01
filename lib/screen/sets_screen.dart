@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_drop.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/animations/pop_in.dart';
+import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/screen/exercise_screen.dart';
 import 'package:lco_workout/widgets/cneubutton.dart';
 import 'package:shimmer/shimmer.dart';
@@ -19,6 +21,8 @@ class _SetsScreenState extends State<SetsScreen>
   int _count = 1;
 
   AnimationController _controller;
+
+  final _animation = locator<AnimationGetIt>();
 
   @override
   void initState() {
@@ -144,6 +148,7 @@ class _SetsScreenState extends State<SetsScreen>
                         ),
                       ),
                       onPressed: () {
+                        _animation.setNum = _count;
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => ExerciseScreen()),

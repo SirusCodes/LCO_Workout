@@ -3,12 +3,15 @@ import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/enum/card_status.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:neumorphic/neumorphic.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'animated_timer.dart';
 
 class MainCard extends StatefulWidget {
-  const MainCard({Key key}) : super(key: key);
+  const MainCard({Key key, this.heightFact}) : super(key: key);
+
+  final double heightFact;
 
   @override
   _MainCardState createState() => _MainCardState();
@@ -19,6 +22,7 @@ class _MainCardState extends State<MainCard>
   Animation<double> mainCardAnimation;
   Animation<double> timerAnimation;
   Animation<double> restTextAnimation;
+  Animation<double> imgAnimation;
 
   static Size _size;
   final animation = locator<AnimationGetIt>();
@@ -26,7 +30,6 @@ class _MainCardState extends State<MainCard>
   @override
   void initState() {
     super.initState();
-    animation.editList();
     animation.controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
   }
@@ -57,6 +60,9 @@ class _MainCardState extends State<MainCard>
 
     restTextAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(parent: animation.controller, curve: Curves.easeIn));
+
+    imgAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: animation.controller, curve: Curves.easeIn));
   }
 
   @override
@@ -75,13 +81,48 @@ class _MainCardState extends State<MainCard>
                 builder: (context, child) {
                   return child;
                 },
-                child: NeuCard(
-                  curveType: CurveType.flat,
-                  bevel: mainCardAnimation.value,
-                  decoration: NeumorphicDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: NeuCard(
+                        curveType: CurveType.flat,
+                        bevel: mainCardAnimation.value,
+                        decoration: NeumorphicDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: FadeTransition(
+                        opacity: imgAnimation,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            Image.asset("assets/images/${animation.imgExer}"),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Consumer<AnimationGetIt>(
+                                builder: (_, provider, __) {
+                                  return Text(
+                                    provider.currentExer,
+                                    style: Theme.of(context)
+                                        .primaryTextTheme
+                                        .display1
+                                        .copyWith(
+                                            fontSize: widget.heightFact * .4),
+                                    textAlign: TextAlign.center,
+                                  );
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
