@@ -59,12 +59,6 @@ class _AnimatedTimerState extends State<AnimatedTimer>
     if (_animation.hundred == 0 && _animation.ten == 0 && _animation.unit <= 5)
       theme = theme.copyWith(color: Color(0xFFff6961));
 
-    if (_animation.hundred == 0 &&
-        _animation.ten == 0 &&
-        _animation.unit == 0) {
-      _animation.nextTime();
-    }
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -105,6 +99,11 @@ class _AnimatedTimerState extends State<AnimatedTimer>
     _animation.seperateTime();
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(oneSec, (Timer timer) {
+      if (_animation.hundred == 0 &&
+          _animation.ten == 0 &&
+          _animation.unit == 0) {
+        _animation.nextTime();
+      }
       setState(() {
         if (_animation.unit < 1) {
           _animation.unit = 9;

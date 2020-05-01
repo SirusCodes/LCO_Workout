@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/widgets/main_card.dart';
+import 'package:provider/provider.dart';
 
 class ExerciseScreen extends StatefulWidget {
   ExerciseScreen({Key key}) : super(key: key);
@@ -43,7 +45,23 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 flex: 5,
                 child: MainCard(),
               ),
-              Expanded(child: Container()),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Consumer<AnimationGetIt>(
+                    builder: (_, provider, __) {
+                      return Text(
+                        "Next: ${provider.nextExer}",
+                        style: Theme.of(context)
+                            .primaryTextTheme
+                            .display1
+                            .copyWith(fontSize: _heightFact * .5),
+                        textAlign: TextAlign.center,
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),

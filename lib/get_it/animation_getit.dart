@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:lco_workout/enum/card_status.dart';
 
-class AnimationGetIt {
+class AnimationGetIt with ChangeNotifier {
   AnimationController controller;
 
   int unit = 0, ten = 0, hundred = 0, _time = 3;
@@ -11,6 +11,9 @@ class AnimationGetIt {
   Queue _queue = Queue();
 
   CardStatus status = CardStatus.start;
+
+  String nextExer = "";
+  int nextExerInt = 0;
 
   void seperateTime() {
     unit = _time % 10;
@@ -30,6 +33,8 @@ class AnimationGetIt {
         status = CardStatus.progress;
         controller.reverse();
         _time = 4;
+        nextExer = exerciseList[++nextExerInt];
+        notifyListeners();
         break;
       default:
         status = CardStatus.progress;
@@ -45,6 +50,8 @@ class AnimationGetIt {
     List<String> _rawList = List<String>.from(rawList);
 
     _queue.clear();
+    nextExerInt = 0;
+    nextExer = exerciseList[nextExerInt];
     // if someone starts the page then he will get a 3s wait
     _time = 3;
     status = CardStatus.start;
