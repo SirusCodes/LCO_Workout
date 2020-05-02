@@ -34,7 +34,27 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Expanded(child: Container()),
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      FittedBox(
+                        child: IconButton(
+                          splashColor: Theme.of(context).buttonColor,
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Theme.of(context).buttonColor,
+                            size: _heightFact * .6,
+                          ),
+                          onPressed: () {
+                            if (_animation.status == CardStatus.end)
+                              Navigator.pop(context);
+                            return _showDialog(fromAppBar: true);
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 Expanded(
                   flex: 5,
                   child: MainCard(
@@ -73,7 +93,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     );
   }
 
-  Future<bool> _showDialog() {
+  Future<bool> _showDialog({bool fromAppBar = false}) {
     if (_animation.status == CardStatus.end) {
       return Future.value(true);
     }
@@ -90,7 +110,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               backgroundColor: Theme.of(context).primaryColor,
               title: Text("Come on you can do it!!!"),
               actions: <Widget>[
-                alertButton(context, "No, I have work", true),
+                alertButton(context, "No, I have work", true,
+                    fromAppBar: fromAppBar),
                 alertButton(context, "Yes, I can", false),
               ],
             ),
@@ -98,13 +119,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         });
   }
 
-  CNeuButton alertButton(BuildContext context, String text, bool rtrn) {
+  CNeuButton alertButton(BuildContext context, String text, bool rtrn,
+      {bool fromAppBar = false}) {
     return CNeuButton(
       child: Text(
         text,
         style: TextStyle(fontSize: 15, color: Colors.white),
       ),
-      onPressed: () => Navigator.pop(context, rtrn),
+      onPressed: () {
+        if (!rtrn) _animation.status = CardStatus.progress;
+        if (fromAppBar) Navigator.pop(context);
+        return Navigator.pop(context, rtrn);
+      },
     );
   }
 }

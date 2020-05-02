@@ -53,6 +53,23 @@ class _SetsScreenState extends State<SetsScreen>
         child: Column(
           children: <Widget>[
             Expanded(
+              child: Row(
+                children: <Widget>[
+                  FittedBox(
+                    child: IconButton(
+                      splashColor: Theme.of(context).buttonColor,
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Theme.of(context).buttonColor,
+                        size: _heightFact * .6,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
