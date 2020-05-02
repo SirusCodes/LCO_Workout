@@ -56,14 +56,14 @@ class _SetsScreenState extends State<SetsScreen>
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    "How many sets would you like to do?",
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .display1
-                        .copyWith(fontSize: _heightFact * .5),
-                    textAlign: TextAlign.center,
+                child: SizedBox.expand(
+                  child: FittedBox(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "How many sets would\n you like to do?",
+                      style: Theme.of(context).primaryTextTheme.display1,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
@@ -73,12 +73,15 @@ class _SetsScreenState extends State<SetsScreen>
               child: FadeDrop(
                 controller: _controller,
                 child: Center(
-                  child: Text(
-                    _count.toString(),
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .display1
-                        .copyWith(fontSize: _heightFact * 3),
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: Text(
+                      _count.toString(),
+                      style: Theme.of(context)
+                          .primaryTextTheme
+                          .display1
+                          .copyWith(fontSize: _heightFact * 3),
+                    ),
                   ),
                 ),
               ),
@@ -129,21 +132,21 @@ class _SetsScreenState extends State<SetsScreen>
                 delay: 0.5,
                 leftToRight: false,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: SizedBox(
-                    width: _size.width / 2 + 10,
                     child: CNeuButton(
                       child: Shimmer.fromColors(
                         baseColor: Colors.white,
                         highlightColor: Theme.of(context).buttonColor,
                         child: Center(
-                          child: Text(
-                            "Let's do it >",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .display1
-                                .copyWith(fontSize: _heightFact * .4),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Text(
+                              "Let's do it >",
+                              textAlign: TextAlign.center,
+                              style:
+                                  Theme.of(context).primaryTextTheme.display1,
+                            ),
                           ),
                         ),
                       ),

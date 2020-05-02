@@ -32,6 +32,7 @@ class AnimationGetIt with ChangeNotifier {
       case 'end':
         status = CardStatus.end;
         controller.reverse();
+        notifyListeners();
         break;
       case 'break':
         status = CardStatus.progress;

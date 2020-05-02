@@ -34,39 +34,37 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[Image.asset("assets/logo.png")],
-                  ),
-                ),
+                Expanded(child: Container()),
                 Expanded(
                   flex: 5,
                   child: MainCard(
                     heightFact: _heightFact,
                   ),
                 ),
-                if (_animation.status != CardStatus.end)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Consumer<AnimationGetIt>(
-                        builder: (_, provider, __) {
-                          return Text(
-                            "Next: ${provider.nextExer}",
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .display1
-                                .copyWith(
-                                  fontSize: _heightFact * .5,
-                                  color: Color(0xFAff817a),
-                                ),
-                            textAlign: TextAlign.center,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Consumer<AnimationGetIt>(
+                      builder: (_, provider, __) {
+                        if (provider.status != CardStatus.end)
+                          return FittedBox(
+                            child: Text(
+                              "Next: ${provider.nextExer}",
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .display1
+                                  .copyWith(
+                                    fontSize: _heightFact * .5,
+                                    color: Color(0xFAff817a),
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
                           );
-                        },
-                      ),
+                        return Container();
+                      },
                     ),
                   ),
+                ),
               ],
             ),
           ),
@@ -77,7 +75,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   Future<bool> _showDialog() {
     if (_animation.status == CardStatus.end) {
-      return Future.value(Navigator.pop(context, true));
+      return Future.value(true);
     }
     _animation.status = CardStatus.paused;
     return showDialog(

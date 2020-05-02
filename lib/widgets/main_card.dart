@@ -142,27 +142,31 @@ class _MainCardState extends State<MainCard>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Shimmer.fromColors(
-                        child: Text(
-                          "Congratulations you have done it!!!",
-                          style: TextStyle(
-                            fontSize: _size.width / 7,
-                            fontWeight: FontWeight.bold,
+                        child: FittedBox(
+                          child: Text(
+                            "Congratulations\n you have done it!!!",
+                            style: TextStyle(
+                              fontSize: _size.width / 8,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                         baseColor: Theme.of(context).buttonColor,
                         highlightColor: Theme.of(context).primaryColor,
                       ),
                       CNeuButton(
-                        child: Text(
-                          "< Back",
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .display1
-                              .copyWith(
-                                color: Colors.white,
-                                fontSize: widget.heightFact * .4,
-                              ),
+                        child: FittedBox(
+                          child: Text(
+                            "< Back",
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .display1
+                                .copyWith(
+                                  color: Colors.white,
+                                  fontSize: widget.heightFact * .4,
+                                ),
+                          ),
                         ),
                         onPressed: () => Navigator.pop(context, true),
                       )
@@ -178,13 +182,16 @@ class _MainCardState extends State<MainCard>
             child: FadeTransition(
               opacity: restTextAnimation,
               child: Shimmer.fromColors(
-                child: Text(
-                  animation.status == CardStatus.start
-                      ? "Let's Start!!!"
-                      : "Take some rest!",
-                  style: TextStyle(
-                    fontSize: _size.width / 8,
-                    fontWeight: FontWeight.bold,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Text(
+                    animation.status == CardStatus.start
+                        ? "Let's Start!!!"
+                        : "Take some rest!",
+                    style: TextStyle(
+                      fontSize: _size.width / 8,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 baseColor: Theme.of(context).buttonColor,
