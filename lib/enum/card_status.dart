@@ -1,1 +1,1 @@
-enum CardStatus { start, progress, end }
+enum CardStatus { start, progress, paused, end }

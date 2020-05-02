@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/enum/card_status.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
+import 'package:lco_workout/widgets/cneubutton.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -137,17 +138,35 @@ class _MainCardState extends State<MainCard>
                 scale: restTextAnimation,
                 child: FadeTransition(
                   opacity: restTextAnimation,
-                  child: Shimmer.fromColors(
-                    child: Text(
-                      "Congratulations you have done it!!!",
-                      style: TextStyle(
-                        fontSize: _size.width / 7,
-                        fontWeight: FontWeight.bold,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Shimmer.fromColors(
+                        child: Text(
+                          "Congratulations you have done it!!!",
+                          style: TextStyle(
+                            fontSize: _size.width / 7,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        baseColor: Theme.of(context).buttonColor,
+                        highlightColor: Theme.of(context).primaryColor,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    baseColor: Theme.of(context).buttonColor,
-                    highlightColor: Theme.of(context).primaryColor,
+                      CNeuButton(
+                        child: Text(
+                          "< Back",
+                          style: Theme.of(context)
+                              .primaryTextTheme
+                              .display1
+                              .copyWith(
+                                color: Colors.white,
+                                fontSize: widget.heightFact * .4,
+                              ),
+                        ),
+                        onPressed: () => Navigator.pop(context, true),
+                      )
+                    ],
                   ),
                 ),
               ),

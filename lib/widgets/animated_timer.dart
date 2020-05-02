@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_drop.dart';
+import 'package:lco_workout/enum/card_status.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 
 class AnimatedTimer extends StatefulWidget {
@@ -99,34 +100,36 @@ class _AnimatedTimerState extends State<AnimatedTimer>
     _animation.seperateTime();
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(oneSec, (Timer timer) {
-      if (_animation.hundred == 0 &&
-          _animation.ten == 0 &&
-          _animation.unit == 0) {
-        _animation.nextTime();
-      }
-      setState(() {
-        if (_animation.unit < 1) {
-          _animation.unit = 9;
-          _unitController.reset();
-          _unitController.forward();
-          if (_animation.ten < 1) {
-            _animation.ten = 9;
-            _animation.hundred--;
-            _hundredController.reset();
-            _tenController.reset();
-            _hundredController.forward();
-            _tenController.forward();
-          } else {
-            _animation.ten--;
-            _tenController.reset();
-            _tenController.forward();
-          }
-        } else {
-          _animation.unit--;
-          _unitController.reset();
-          _unitController.forward();
+      if (_animation.status != CardStatus.paused) {
+        if (_animation.hundred == 0 &&
+            _animation.ten == 0 &&
+            _animation.unit == 0) {
+          _animation.nextTime();
         }
-      });
+        setState(() {
+          if (_animation.unit < 1) {
+            _animation.unit = 9;
+            _unitController.reset();
+            _unitController.forward();
+            if (_animation.ten < 1) {
+              _animation.ten = 9;
+              _animation.hundred--;
+              _hundredController.reset();
+              _tenController.reset();
+              _hundredController.forward();
+              _tenController.forward();
+            } else {
+              _animation.ten--;
+              _tenController.reset();
+              _tenController.forward();
+            }
+          } else {
+            _animation.unit--;
+            _unitController.reset();
+            _unitController.forward();
+          }
+        });
+      }
     });
   }
 }
