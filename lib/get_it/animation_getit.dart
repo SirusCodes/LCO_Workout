@@ -1,11 +1,12 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/enum/card_status.dart';
 
 class AnimationGetIt with ChangeNotifier {
   AnimationController controller;
 
-  int unit = 0, ten = 0, hundred = 0, _time = 3, setNum;
+  int unit = 0, ten = 0, hundred = 0, _time = startTime, setNum;
 
   List<String> exerciseList = [], rawList = [];
   Queue _nextQueue = Queue();
@@ -35,13 +36,22 @@ class AnimationGetIt with ChangeNotifier {
       case 'break':
         status = CardStatus.progress;
         controller.reverse();
-        _time = 1;
+        _time = breakTime;
         break;
       default:
         status = CardStatus.progress;
-        if (imgExerInt <= 4) imgExer = rawList[imgExerInt++];
+        if (imgExerInt <= 4)
+          imgExer = rawList[imgExerInt++];
+        else {
+          imgExerInt = 0;
+          imgExer = rawList[imgExerInt++];
+        }
         currentExer = nextExer;
-        if (nextExerInt < 4) {
+        // since there is an end keyword
+        if (_nextQueue.length > 2) {
+          // since at start nextInt is 0
+          if (nextExerInt >= 4) nextExerInt = -1;
+
           nextExer = exerciseList[++nextExerInt];
           notifyListeners();
         } else {
@@ -49,7 +59,7 @@ class AnimationGetIt with ChangeNotifier {
           notifyListeners();
         }
         controller.forward();
-        _time = 2;
+        _time = exerTime;
         break;
     }
     _nextQueue.removeFirst();
@@ -78,7 +88,9 @@ class AnimationGetIt with ChangeNotifier {
           _nextQueue.add("break");
         }
       }
+      _nextQueue.add("break");
     }
+    _nextQueue.removeLast();
     _nextQueue.add("end");
   }
 }

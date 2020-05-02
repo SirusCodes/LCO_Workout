@@ -128,6 +128,31 @@ class _MainCardState extends State<MainCard>
             ),
           ),
         ),
+        if (animation.status == CardStatus.end)
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ScaleTransition(
+                scale: restTextAnimation,
+                child: FadeTransition(
+                  opacity: restTextAnimation,
+                  child: Shimmer.fromColors(
+                    child: Text(
+                      "Congratulations you have done it!!!",
+                      style: TextStyle(
+                        fontSize: _size.width / 7,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    baseColor: Theme.of(context).buttonColor,
+                    highlightColor: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
         if (animation.status != CardStatus.end)
           Align(
             alignment: Alignment.topCenter,

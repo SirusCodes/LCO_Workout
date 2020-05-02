@@ -18,3 +18,5 @@ const List<String> musics = [
   "rock_2.mp3",
   "up_from_the_ashes.mp3",
 ];
+
+const int startTime = 3, exerTime = 2, breakTime = 1;

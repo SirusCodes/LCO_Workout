@@ -64,7 +64,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                         style: Theme.of(context)
                             .primaryTextTheme
                             .display1
-                            .copyWith(fontSize: _heightFact * .5),
+                            .copyWith(
+                              fontSize: _heightFact * .5,
+                              color: Color(0xFAff817a),
+                            ),
                         textAlign: TextAlign.center,
                       );
                     },
