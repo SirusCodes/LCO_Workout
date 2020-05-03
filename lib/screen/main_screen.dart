@@ -5,7 +5,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/constants.dart';
-import 'package:lco_workout/enum/drawer_state.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/get_it/drawer_getit.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
@@ -61,9 +60,7 @@ class _MainPageState extends State<MainPage> {
                           size: height / 2,
                         ),
                         onPressed: () {
-                          _drawer.state == DrawerState.closed
-                              ? _drawer.showDrawer()
-                              : _drawer.hideDrawer();
+                          _drawer.animateDrawer();
                         },
                       ),
                     )

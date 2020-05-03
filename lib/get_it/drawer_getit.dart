@@ -6,13 +6,17 @@ class DrawerGetIt {
 
   DrawerState state = DrawerState.closed;
 
-  showDrawer() {
+  _showDrawer() {
     state = DrawerState.open;
     controller.forward();
   }
 
-  hideDrawer() {
+  _hideDrawer() {
     state = DrawerState.closed;
     controller.reverse();
+  }
+
+  animateDrawer() {
+    state == DrawerState.closed ? _showDrawer() : _hideDrawer();
   }
 }
