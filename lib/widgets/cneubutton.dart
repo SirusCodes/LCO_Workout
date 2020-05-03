@@ -11,7 +11,10 @@ class CNeuButton extends StatefulWidget {
       borderRadius: BorderRadius.all(Radius.circular(15.0)),
     ),
     Key key,
+    this.color,
   }) : super(key: key);
+
+  final Color color;
 
   final Widget child;
 
@@ -32,7 +35,7 @@ class _CNeuButtonState extends State<CNeuButton> {
       padding: widget.padding,
       child: widget.child,
       style: NeumorphicStyle(
-        color: Theme.of(context).buttonColor,
+        color: widget.color ?? Theme.of(context).buttonColor,
         shadowLightColor: Color(0xffb1bac7),
         shadowDarkColor: Color(0xff7d828a),
       ),

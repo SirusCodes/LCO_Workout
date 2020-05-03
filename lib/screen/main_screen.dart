@@ -5,9 +5,10 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/constants.dart';
+import 'package:lco_workout/enum/drawer_state.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
+import 'package:lco_workout/get_it/drawer_getit.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
-import 'package:neumorphic/neumorphic.dart';
 import 'package:shimmer/shimmer.dart';
 import '../widgets/cneubutton.dart';
 
@@ -22,6 +23,7 @@ class _MainPageState extends State<MainPage> {
   List<String> exerciseList = [];
 
   final _animation = locator<AnimationGetIt>();
+  final _drawer = locator<DrawerGetIt>();
   @override
   void initState() {
     super.initState();
@@ -34,8 +36,8 @@ class _MainPageState extends State<MainPage> {
 
     final height = _size.height / 10;
 
-    return Scaffold(
-      body: Container(
+    return Material(
+      child: Container(
         color: Theme.of(context).primaryColor,
         child: Center(
           child: Column(
@@ -48,6 +50,22 @@ class _MainPageState extends State<MainPage> {
                     Image.asset(
                       "assets/logo.png",
                       fit: BoxFit.cover,
+                    ),
+                    Spacer(),
+                    FittedBox(
+                      fit: BoxFit.cover,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.dehaze,
+                          color: Theme.of(context).buttonColor,
+                          size: height / 2,
+                        ),
+                        onPressed: () {
+                          _drawer.state == DrawerState.closed
+                              ? _drawer.showDrawer()
+                              : _drawer.hideDrawer();
+                        },
+                      ),
                     )
                   ],
                 ),
@@ -71,34 +89,37 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 flex: 5,
-                child: Column(
-                  children: <Widget>[
-                    FadeSlide(
-                      delay: 1.5,
-                      child: buildCard(context, exerciseList[0], _size),
-                      leftToRight: true,
-                    ),
-                    FadeSlide(
-                      delay: 1.7,
-                      child: buildCard(context, exerciseList[1], _size),
-                      leftToRight: true,
-                    ),
-                    FadeSlide(
-                      delay: 2.0,
-                      child: buildCard(context, exerciseList[2], _size),
-                      leftToRight: true,
-                    ),
-                    FadeSlide(
-                      delay: 2.3,
-                      child: buildCard(context, exerciseList[3], _size),
-                      leftToRight: true,
-                    ),
-                    FadeSlide(
-                      delay: 2.6,
-                      child: buildCard(context, exerciseList[4], _size),
-                      leftToRight: true,
-                    ),
-                  ],
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Column(
+                    children: <Widget>[
+                      FadeSlide(
+                        delay: 1.5,
+                        child: buildCard(context, exerciseList[0], _size),
+                        leftToRight: true,
+                      ),
+                      FadeSlide(
+                        delay: 1.7,
+                        child: buildCard(context, exerciseList[1], _size),
+                        leftToRight: true,
+                      ),
+                      FadeSlide(
+                        delay: 2.0,
+                        child: buildCard(context, exerciseList[2], _size),
+                        leftToRight: true,
+                      ),
+                      FadeSlide(
+                        delay: 2.3,
+                        child: buildCard(context, exerciseList[3], _size),
+                        leftToRight: true,
+                      ),
+                      FadeSlide(
+                        delay: 2.6,
+                        child: buildCard(context, exerciseList[4], _size),
+                        leftToRight: true,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -145,27 +166,20 @@ class _MainPageState extends State<MainPage> {
   Padding buildCard(BuildContext context, String title, Size size) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: NeuCard(
-        curveType: CurveType.flat,
-        bevel: 8,
-        decoration: NeumorphicDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(8),
-        ),
+      child: CNeuButton(
+        color: Theme.of(context).primaryColor,
+        onPressed: () {},
         child: SizedBox(
-          height: size.height / 13,
+          height: size.height / 15,
           width: size.width,
           child: Center(
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: Text(
-                title,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .primaryTextTheme
-                    .display1
-                    .copyWith(fontSize: size.height / 30),
-              ),
+            child: Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .display1
+                  .copyWith(fontSize: size.height / 30),
             ),
           ),
         ),

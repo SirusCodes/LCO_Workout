@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
+import 'package:lco_workout/screen/landing_page.dart';
 import 'package:provider/provider.dart';
-import 'screen/main_screen.dart';
 
 void main() {
   setup();
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => locator<AnimationGetIt>(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primaryColor: Color(0xFFf4f4f4),
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: MainPage(),
+        home: LandingPage(),
       ),
     );
   }
