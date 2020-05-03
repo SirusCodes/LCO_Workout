@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:lco_workout/animations/fade_slide.dart';
+import 'package:lco_workout/widgets/cneubutton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -35,7 +37,58 @@ class AboutScreen extends StatelessWidget {
                       Expanded(
                         child: socialButton(context),
                       ),
-                      Expanded(flex: 1, child: Container())
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Text(
+                                      "It took me around a week to make develop this app. I would take 7K for the app.",
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .display1
+                                          .copyWith(fontSize: _heightFact / 4),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Expanded(
+                                child: FadeSlide(
+                                  delay: 0,
+                                  leftToRight: false,
+                                  child: CNeuButton(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: FittedBox(
+                                      child: Text(
+                                        "Challenged by Hitesh Chaudhary",
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .display1
+                                            .copyWith(
+                                              fontSize: _heightFact / 3,
+                                              color: Colors.white,
+                                            ),
+                                      ),
+                                    ),
+                                    onPressed: () => _launchURL(
+                                      "https://youtu.be/VFrKjhcTAzE",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -51,22 +104,17 @@ class AboutScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        buildSocialButton(
-          context,
-          "assets/images/Twitter_Logo.png",
-          () => _launchURL("https://twitter.com/SirusTweets"),
-        ),
-        buildSocialButton(
-          context,
-          "assets/images/GitHub-Mark.png",
-          () => _launchURL("https://github.com/SirusCodes"),
-        ),
+        buildSocialButton(context, "assets/images/Twitter_Logo.png",
+            () => _launchURL("https://twitter.com/SirusTweets"), .4),
+        buildSocialButton(context, "assets/images/GitHub-Mark.png",
+            () => _launchURL("https://github.com/SirusCodes"), .2),
         buildSocialButton(
           context,
           "assets/images/LinkedIn_Logo.png",
           () => _launchURL(
             "https://www.linkedin.com/in/darshan-rander-b28a3b193/",
           ),
+          .1,
         ),
       ],
     );
@@ -80,23 +128,27 @@ class AboutScreen extends StatelessWidget {
     }
   }
 
-  NeumorphicButton buildSocialButton(
-      BuildContext context, String image, Function onPressed) {
-    return NeumorphicButton(
-      boxShape: NeumorphicBoxShape.circle(),
-      style: NeumorphicStyle(
-        color: Theme.of(context).primaryColor,
-      ),
-      child: FittedBox(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(
-            image,
-            height: 50,
+  Widget buildSocialButton(
+      BuildContext context, String image, Function onPressed, double delay) {
+    return FadeSlide(
+      delay: delay,
+      leftToRight: true,
+      child: NeumorphicButton(
+        boxShape: NeumorphicBoxShape.circle(),
+        style: NeumorphicStyle(
+          color: Theme.of(context).primaryColor,
+        ),
+        child: FittedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              image,
+              height: 50,
+            ),
           ),
         ),
+        onClick: onPressed,
       ),
-      onClick: onPressed,
     );
   }
 
@@ -104,7 +156,7 @@ class AboutScreen extends StatelessWidget {
     return Column(
       children: <Widget>[
         Expanded(
-          flex: 4,
+          flex: 2,
           child: Hero(
             tag: "About",
             child: FittedBox(
@@ -117,16 +169,28 @@ class AboutScreen extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Center(
+          child: Center(
+            child: Text(
+              "Darshan Rander",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .display1
+                  .copyWith(fontSize: _heightFact / 2),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                "Darshan Rander",
+                "I'm a budding Flutter App Developer from Maharashtra. Currently I'm doing I.T. Engineering.",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .primaryTextTheme
                     .display1
-                    .copyWith(fontSize: _heightFact / 2),
+                    .copyWith(fontSize: _heightFact / 4),
               ),
             ),
           ),
