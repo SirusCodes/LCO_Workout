@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({Key key}) : super(key: key);
@@ -32,26 +33,7 @@ class AboutScreen extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            buildSocialButton(
-                              context,
-                              "assets/images/Twitter_Logo.png",
-                              () {},
-                            ),
-                            buildSocialButton(
-                              context,
-                              "assets/images/GitHub-Mark.png",
-                              () {},
-                            ),
-                            buildSocialButton(
-                              context,
-                              "assets/images/LinkedIn_Logo.png",
-                              () {},
-                            ),
-                          ],
-                        ),
+                        child: socialButton(context),
                       ),
                       Expanded(flex: 1, child: Container())
                     ],
@@ -63,6 +45,39 @@ class AboutScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Row socialButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        buildSocialButton(
+          context,
+          "assets/images/Twitter_Logo.png",
+          () => _launchURL("https://twitter.com/SirusTweets"),
+        ),
+        buildSocialButton(
+          context,
+          "assets/images/GitHub-Mark.png",
+          () => _launchURL("https://github.com/SirusCodes"),
+        ),
+        buildSocialButton(
+          context,
+          "assets/images/LinkedIn_Logo.png",
+          () => _launchURL(
+            "https://www.linkedin.com/in/darshan-rander-b28a3b193/",
+          ),
+        ),
+      ],
+    );
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   NeumorphicButton buildSocialButton(
@@ -89,7 +104,7 @@ class AboutScreen extends StatelessWidget {
     return Column(
       children: <Widget>[
         Expanded(
-          flex: 2,
+          flex: 4,
           child: Hero(
             tag: "About",
             child: FittedBox(

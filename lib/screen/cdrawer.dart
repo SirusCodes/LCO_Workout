@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lco_workout/screen/about_screen.dart';
 import 'package:lco_workout/widgets/cneubutton.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CDrawer extends StatelessWidget {
   const CDrawer({Key key}) : super(key: key);
@@ -20,7 +21,8 @@ class CDrawer extends StatelessWidget {
               context,
               title: "Source Code",
               size: _size,
-              onPressed: () {},
+              onPressed: () =>
+                  _launchURL("https://github.com/SirusCodes/LCO_Workout"),
               image: Image.asset("assets/images/OpenSource_Logo_BnW.png"),
             ),
             buildCard(
@@ -81,5 +83,13 @@ class CDrawer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
