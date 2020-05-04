@@ -48,6 +48,7 @@ class AnimationGetIt with ChangeNotifier {
         break;
       default:
         status = CardStatus.progress;
+        //!  _time = _timeList[imgExerInt];    TODO: Uncomment this in final release
         if (imgExerInt <= 4)
           imgExer = rawList[imgExerInt++];
         else {
@@ -67,8 +68,8 @@ class AnimationGetIt with ChangeNotifier {
           notifyListeners();
         }
         controller.forward();
-        _time = exerTime;
-        break;
+
+      //! _time = exerTime;  TODO: Remove this in final release
     }
     _nextQueue.removeFirst();
     seperateTime();
