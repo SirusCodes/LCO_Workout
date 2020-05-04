@@ -9,6 +9,13 @@ class AnimationGetIt with ChangeNotifier {
   int unit = 0, ten = 0, hundred = 0, _time = startTime, setNum;
 
   List<String> exerciseList = [], rawList = [];
+  List<int> _timeList = [];
+
+  set setTime(List<int> list) {
+    _timeList.clear();
+    _timeList = list;
+  }
+
   Queue _nextQueue = Queue();
 
   CardStatus status = CardStatus.start;

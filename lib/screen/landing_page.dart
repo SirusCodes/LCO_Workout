@@ -28,14 +28,20 @@ class _LandingPageState extends State<LandingPage>
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     final _size = MediaQuery.of(context).size;
 
-    super.didChangeDependencies();
     _animation = Tween<double>(begin: 0, end: _size.height / 3).animate(
         CurvedAnimation(parent: _drawer.controller, curve: Curves.easeIn))
       ..addListener(() {
         setState(() {});
       });
+  }
+
+  @override
+  void dispose() {
+    _drawer.controller.dispose();
+    super.dispose();
   }
 
   @override

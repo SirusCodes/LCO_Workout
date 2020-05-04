@@ -7,8 +7,9 @@ import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/get_it/drawer_getit.dart';
+import 'package:lco_workout/screen/rep_count_time.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:lco_workout/widgets/shimmer_button.dart';
 import '../widgets/cneubutton.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List<String> exerciseList = [];
+  List<int> _time = [];
 
   final _animation = locator<AnimationGetIt>();
   final _drawer = locator<DrawerGetIt>();
@@ -85,7 +87,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: FittedBox(
                   fit: BoxFit.contain,
                   child: Column(
@@ -120,39 +122,46 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               Expanded(
-                child: FadeSlide(
-                  delay: 2.5,
-                  leftToRight: false,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: CNeuButton(
-                      child: Shimmer.fromColors(
-                        baseColor: Colors.white,
-                        highlightColor: Theme.of(context).buttonColor,
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Text(
-                              "Let's count sets >",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .display1
-                                  .copyWith(fontSize: height * .4),
-                            ),
+                flex: 2,
+                child: Column(
+                  children: <Widget>[
+                    // Custom rep count
+                    Expanded(
+                      child: ShimmerButton(
+                        delay: 2.3,
+                        height: height,
+                        text: "Set custom rep count >",
+                        padding: const EdgeInsets.fromLTRB(15.0, 30.0, 15.0, 0),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => RepCountScreen(timeList: _time),
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => SetsScreen()),
-                        );
-                      },
                     ),
-                  ),
+                    // default rep count
+                    Expanded(
+                      child: ShimmerButton(
+                        height: height,
+                        text: "Set automatic reps count >",
+                        onPressed: () {
+                          List<int> _timeList = List<int>();
+                          for (var i = 0; i < 5; i++) {
+                            _timeList.add(_time[i] != 0 ? 15 * _time[i] : 60);
+                          }
+                          _animation.setTime = _timeList;
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => SetsScreen()),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -193,6 +202,7 @@ class _MainPageState extends State<MainPage> {
       var item = images[i];
       if (!rawList.contains(item)) {
         rawList.add(item);
+        _time.add(DEFAULT_TIME[item]);
         item = item.replaceAll("_", " ").replaceFirst(".png", "").toUpperCase();
         exerciseList.add(item);
         count--;
