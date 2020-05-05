@@ -47,6 +47,7 @@ class _AnimatedTimerState extends State<AnimatedTimer>
     _tenController.dispose();
     _hundredController.dispose();
     _timer.cancel();
+    _animation.getPlayer.dispose();
     super.dispose();
   }
 
@@ -100,7 +101,7 @@ class _AnimatedTimerState extends State<AnimatedTimer>
     _animation.seperateTime();
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(oneSec, (Timer timer) {
-      if (_animation.status != CardStatus.paused) {
+      if (_animation.getState != CardStatus.paused) {
         if (_animation.hundred == 0 &&
             _animation.ten == 0 &&
             _animation.unit == 0) {

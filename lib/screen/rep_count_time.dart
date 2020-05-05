@@ -108,11 +108,11 @@ class _RepCountScreenState extends State<RepCountScreen> {
                   int _time;
                   // add to time list
                   if (_currentView < 5)
-                    _time = widget.timeList[_currentView] == 0
-                        ? 60
-                        : _currentRep * widget.timeList[_currentView];
+                    _time = _currentRep * widget.timeList[_currentView];
 
                   _timeList.add(_time);
+
+                  _ifSkip();
 
                   if (_currentView < 4) {
                     setState(() {
@@ -125,7 +125,7 @@ class _RepCountScreenState extends State<RepCountScreen> {
                   } else {
                     _timeList.forEach((f) => print(f));
                     _getIt.setTime = _timeList;
-                    Navigator.push(context,
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (_) => SetsScreen()));
                   }
                 },
@@ -229,6 +229,13 @@ class _RepCountScreenState extends State<RepCountScreen> {
         );
       },
     );
+  }
+
+  _ifSkip() {
+    if (_currentView < 4 && widget.timeList[_currentView + 1] == 0) {
+      _currentView++;
+      _timeList.add(60);
+    }
   }
 }
 

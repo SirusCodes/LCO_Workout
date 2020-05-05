@@ -16,6 +16,8 @@ class ExerciseScreen extends StatefulWidget {
 class _ExerciseScreenState extends State<ExerciseScreen> {
   var _animation = locator<AnimationGetIt>();
 
+  CardStatus _previousStatus;
+
   @override
   void initState() {
     _animation.editList();
@@ -98,13 +100,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     if (_animation.status == CardStatus.end) {
       return Future.value(true);
     }
-    _animation.status = CardStatus.paused;
+    _previousStatus = _animation.getState;
+    _animation.setState = CardStatus.paused;
     return showDialog(
         context: context,
         builder: (context) {
           return WillPopScope(
             onWillPop: () async {
-              _animation.status = CardStatus.progress;
+              _animation.setState = _previousStatus;
               return true;
             },
             child: AlertDialog(
@@ -128,8 +131,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         style: TextStyle(fontSize: 15, color: Colors.white),
       ),
       onPressed: () {
-        if (!rtrn) _animation.status = CardStatus.progress;
+        if (!rtrn) _animation.setState = _previousStatus;
         if (fromAppBar) Navigator.pop(context);
+        if (rtrn) _animation.setState = CardStatus.end;
         return Navigator.pop(context, rtrn);
       },
     );

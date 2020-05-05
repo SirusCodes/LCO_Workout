@@ -9,6 +9,7 @@ class AnimationGetIt with ChangeNotifier {
   AnimationController controller;
 
   AssetsAudioPlayer _player = AssetsAudioPlayer();
+  AssetsAudioPlayer get getPlayer => _player;
 
   List<String> musicList = [];
 
@@ -20,6 +21,31 @@ class AnimationGetIt with ChangeNotifier {
   set setTime(List<int> list) {
     _timeList.clear();
     _timeList = list;
+  }
+
+  CardStatus get getState {
+    _player.currentPosition.listen((position) {
+      print(position);
+      if (position == _player.current.value.audio.duration) {}
+    });
+    return this.status;
+  }
+
+  set setState(CardStatus status) {
+    switch (status) {
+      case CardStatus.paused:
+        _player.pause();
+        break;
+      case CardStatus.progress:
+        _player.play();
+        break;
+      case CardStatus.start:
+        break;
+      case CardStatus.end:
+        _player.stop();
+        break;
+    }
+    this.status = status;
   }
 
   Queue _nextQueue = Queue();
@@ -47,7 +73,6 @@ class AnimationGetIt with ChangeNotifier {
         controller.reverse();
         notifyListeners();
         _player.stop();
-        _player.dispose();
         break;
       case 'break':
         status = CardStatus.progress;
@@ -57,13 +82,13 @@ class AnimationGetIt with ChangeNotifier {
         break;
       default:
         status = CardStatus.progress;
-        //!  _time = _timeList[imgExerInt];    TODO: Uncomment this in final release
+        _time = _timeList[imgExerInt];
         // music
         _player.open(
           Audio("assets/music/" + musicList[imgExerInt]),
           showNotification: false,
           autoStart: true,
-          seek: Duration(seconds: _timeList[imgExerInt]),
+          respectSilentMode: true,
         );
 
         if (imgExerInt <= 4)
@@ -86,7 +111,7 @@ class AnimationGetIt with ChangeNotifier {
         }
         controller.forward();
 
-        _time = exerTime; //!  TODO: Remove this in final release
+      // _time = exerTime; //!  TODO: Remove this in final release
     }
 
     _nextQueue.removeFirst();
