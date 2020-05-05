@@ -1,10 +1,16 @@
 import 'dart:collection';
+import 'dart:math';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/enum/card_status.dart';
 
 class AnimationGetIt with ChangeNotifier {
   AnimationController controller;
+
+  AssetsAudioPlayer _player = AssetsAudioPlayer();
+
+  List<String> musicList = [];
 
   int unit = 0, ten = 0, hundred = 0, _time = startTime, setNum;
 
@@ -40,15 +46,26 @@ class AnimationGetIt with ChangeNotifier {
         status = CardStatus.end;
         controller.reverse();
         notifyListeners();
+        _player.stop();
+        _player.dispose();
         break;
       case 'break':
         status = CardStatus.progress;
         controller.reverse();
         _time = breakTime;
+        _player.stop();
         break;
       default:
         status = CardStatus.progress;
         //!  _time = _timeList[imgExerInt];    TODO: Uncomment this in final release
+        // music
+        _player.open(
+          Audio("assets/music/" + musicList[imgExerInt]),
+          showNotification: false,
+          autoStart: true,
+          seek: Duration(seconds: _timeList[imgExerInt]),
+        );
+
         if (imgExerInt <= 4)
           imgExer = rawList[imgExerInt++];
         else {
@@ -69,8 +86,9 @@ class AnimationGetIt with ChangeNotifier {
         }
         controller.forward();
 
-      //! _time = exerTime;  TODO: Remove this in final release
+        _time = exerTime; //!  TODO: Remove this in final release
     }
+
     _nextQueue.removeFirst();
     seperateTime();
   }
@@ -101,5 +119,16 @@ class AnimationGetIt with ChangeNotifier {
     }
     _nextQueue.removeLast();
     _nextQueue.add("end");
+  }
+
+  getMusic() {
+    Random _rand = Random();
+    musicList.clear();
+
+    musicList = List<String>.from(musics);
+    musicList.add(musics[_rand.nextInt(3)]);
+    musicList.shuffle();
+
+    musicList.forEach((f) => print(f));
   }
 }

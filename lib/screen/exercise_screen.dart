@@ -19,6 +19,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   @override
   void initState() {
     _animation.editList();
+    _animation.getMusic();
     super.initState();
   }
 
