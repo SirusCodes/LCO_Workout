@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animation_locator.dart';
+import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/enum/rep_count.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
@@ -269,13 +270,26 @@ class ImageAndName extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: FittedBox(
-              child: Text(
-                _exer,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .primaryTextTheme
-                    .display1
-                    .copyWith(fontSize: _heightFact / 2),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    _exer,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .display1
+                        .copyWith(fontSize: _heightFact),
+                  ),
+                  Text(
+                    "Seconds assigned per rep: " +
+                        DEFAULT_TIME[_raw].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .display1
+                        .copyWith(fontSize: _heightFact / 2),
+                  ),
+                ],
               ),
             ),
           ),
