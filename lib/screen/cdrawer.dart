@@ -59,6 +59,7 @@ class CDrawer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CNeuButton(
+        intensity: .5,
         color: Theme.of(context).primaryColor,
         onPressed: onPressed,
         child: SizedBox(
