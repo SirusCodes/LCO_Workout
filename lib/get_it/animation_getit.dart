@@ -13,6 +13,8 @@ class AnimationGetIt with ChangeNotifier {
 
   List<String> musicList = [];
 
+  int currentSet, _count;
+
   int unit = 0, ten = 0, hundred = 0, _time = startTime, setNum;
 
   List<String> exerciseList = [], rawList = [];
@@ -25,7 +27,6 @@ class AnimationGetIt with ChangeNotifier {
 
   CardStatus get getState {
     _player.currentPosition.listen((position) {
-      print(position);
       if (position == _player.current.value.audio.duration) {}
     });
     return this.status;
@@ -82,6 +83,11 @@ class AnimationGetIt with ChangeNotifier {
         break;
       default:
         status = CardStatus.progress;
+        if (_count == 5) {
+          currentSet++;
+          _count = 0;
+        }
+        _count++;
         _time = _timeList[imgExerInt];
         // music
         _player.open(
@@ -120,6 +126,9 @@ class AnimationGetIt with ChangeNotifier {
 
   void editList() {
     _nextQueue.clear();
+
+    currentSet = 0;
+    _count = 0;
     // sets img to start position
     imgExerInt = 0;
     imgExer = rawList[imgExerInt];

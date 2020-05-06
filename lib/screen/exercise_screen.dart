@@ -40,8 +40,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 Expanded(
                   child: Row(
                     children: <Widget>[
-                      FittedBox(
+                      Expanded(
                         child: IconButton(
+                          alignment: Alignment.centerLeft,
                           splashColor: Theme.of(context).buttonColor,
                           icon: Icon(
                             Icons.arrow_back,
@@ -54,7 +55,20 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             return _showDialog(fromAppBar: true);
                           },
                         ),
-                      )
+                      ),
+                      Expanded(
+                        child: Consumer<AnimationGetIt>(
+                          builder: (_, _anim, __) {
+                            return Text(
+                              "${_anim.currentSet + 1}/${_anim.setNum}",
+                              textAlign: TextAlign.center,
+                              style:
+                                  Theme.of(context).primaryTextTheme.display1,
+                            );
+                          },
+                        ),
+                      ),
+                      Expanded(child: Container())
                     ],
                   ),
                 ),
