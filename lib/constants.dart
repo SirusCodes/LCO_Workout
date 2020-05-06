@@ -29,8 +29,6 @@ const Map<String, int> DEFAULT_TIME = {
 const List<String> musics = [
   "pop.mp3",
   "rock_1.mp3",
-  "rock_2.mp3",
-  "up_from_the_ashes.mp3",
 ];
 
-const int startTime = 3, exerTime = 2, breakTime = 1;
+const int startTime = 3, exerTime = 2, breakTime = 40;

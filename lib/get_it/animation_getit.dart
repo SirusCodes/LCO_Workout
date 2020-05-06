@@ -156,13 +156,9 @@ class AnimationGetIt with ChangeNotifier {
   }
 
   getMusic() {
-    Random _rand = Random();
     musicList.clear();
-
-    musicList = List<String>.from(musics);
-    musicList.add(musics[_rand.nextInt(3)]);
-    musicList.shuffle();
-
-    musicList.forEach((f) => print(f));
+    for (var i = 0; i < 5; i++) {
+      musicList.add(musics[i % 2]);
+    }
   }
 }
