@@ -64,7 +64,7 @@ class CNeumorphicRadio<T> extends StatelessWidget {
       pressed: isSelected,
       minDistance: selectedDepth,
       boxShape: this.boxShape ??
-          NeumorphicBoxShape.roundRect(borderRadius: BorderRadius.circular(5)),
+          NeumorphicBoxShape.roundRect(BorderRadius.circular(5)),
       child: this.child,
       style: NeumorphicStyle(
         disableDepth: this.style.disableDepth,

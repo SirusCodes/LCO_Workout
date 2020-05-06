@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:math';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:lco_workout/constants.dart';

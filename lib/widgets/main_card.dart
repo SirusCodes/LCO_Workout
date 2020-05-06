@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/enum/card_status.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/widgets/cneubutton.dart';
-import 'package:neumorphic/neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -86,12 +86,12 @@ class _MainCardState extends State<MainCard>
                   alignment: Alignment.center,
                   children: <Widget>[
                     Positioned.fill(
-                      child: NeuCard(
-                        curveType: CurveType.flat,
-                        bevel: mainCardAnimation.value,
-                        decoration: NeumorphicDecoration(
+                      child: Neumorphic(
+                        boxShape: NeumorphicBoxShape.roundRect(
+                            BorderRadius.circular(15)),
+                        style: NeumorphicStyle(
                           color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(8),
+                          depth: mainCardAnimation.value,
                         ),
                       ),
                     ),

@@ -7,9 +7,7 @@ class CNeuButton extends StatefulWidget {
     @required this.onPressed,
     this.child,
     this.padding = const EdgeInsets.all(12.0),
-    this.shape = const NeumorphicBoxShape.roundRect(
-      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-    ),
+    this.shape,
     Key key,
     this.color,
   }) : super(key: key);
