@@ -82,7 +82,7 @@ class _RepCountScreenState extends State<RepCountScreen> {
                       "Number of Reps: $_currentRep",
                       style: Theme.of(context)
                           .primaryTextTheme
-                          .display1
+                          .headline1
                           .copyWith(fontSize: _heightFact / 2),
                     ),
                     FittedBox(
@@ -153,7 +153,7 @@ class _RepCountScreenState extends State<RepCountScreen> {
               count,
               style: Theme.of(context)
                   .primaryTextTheme
-                  .display1
+                  .headline1
                   .copyWith(fontSize: 30),
             ),
           ),
@@ -277,7 +277,7 @@ class ImageAndName extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .primaryTextTheme
-                        .display1
+                        .headline1
                         .copyWith(fontSize: _heightFact),
                   ),
                   Text(
@@ -286,7 +286,7 @@ class ImageAndName extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .primaryTextTheme
-                        .display1
+                        .headline1
                         .copyWith(fontSize: _heightFact / 2),
                   ),
                 ],

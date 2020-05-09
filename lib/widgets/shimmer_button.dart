@@ -38,7 +38,7 @@ class ShimmerButton extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .primaryTextTheme
-                      .display1
+                      .headline1
                       .copyWith(fontSize: height * .4),
                 ),
               ),

@@ -78,7 +78,7 @@ class _SetsScreenState extends State<SetsScreen>
                     alignment: Alignment.center,
                     child: Text(
                       "How many sets would\n you like to do?",
-                      style: Theme.of(context).primaryTextTheme.display1,
+                      style: Theme.of(context).primaryTextTheme.headline1,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -96,7 +96,7 @@ class _SetsScreenState extends State<SetsScreen>
                       _count.toString(),
                       style: Theme.of(context)
                           .primaryTextTheme
-                          .display1
+                          .headline1
                           .copyWith(fontSize: _heightFact * 3),
                     ),
                   ),
@@ -162,7 +162,7 @@ class _SetsScreenState extends State<SetsScreen>
                               "Let's do it >",
                               textAlign: TextAlign.center,
                               style:
-                                  Theme.of(context).primaryTextTheme.display1,
+                                  Theme.of(context).primaryTextTheme.headline1,
                             ),
                           ),
                         ),
@@ -193,7 +193,7 @@ class _SetsScreenState extends State<SetsScreen>
         text,
         style: Theme.of(context)
             .primaryTextTheme
-            .display1
+            .headline1
             .copyWith(fontSize: size, color: Colors.white),
       ),
       shape: NeumorphicBoxShape.circle(),

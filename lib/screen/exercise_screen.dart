@@ -63,7 +63,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               "${_anim.currentSet + 1}/${_anim.setNum}",
                               textAlign: TextAlign.center,
                               style:
-                                  Theme.of(context).primaryTextTheme.display1,
+                                  Theme.of(context).primaryTextTheme.headline1,
                             );
                           },
                         ),
@@ -89,7 +89,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               "Next: ${provider.nextExer}",
                               style: Theme.of(context)
                                   .primaryTextTheme
-                                  .display1
+                                  .headline1
                                   .copyWith(
                                     fontSize: _heightFact * .5,
                                     color: Color(0xFAff817a),

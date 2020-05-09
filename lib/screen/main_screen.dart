@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
                         "Today's exercise includes",
                         style: Theme.of(context)
                             .primaryTextTheme
-                            .display1
+                            .headline1
                             .copyWith(fontSize: height * .5),
                         textAlign: TextAlign.center,
                       ),
@@ -184,7 +184,7 @@ class _MainPageState extends State<MainPage> {
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)
                   .primaryTextTheme
-                  .display1
+                  .headline1
                   .copyWith(fontSize: size.height / 30),
             ),
           ),

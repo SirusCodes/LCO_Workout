@@ -55,7 +55,7 @@ class _AnimatedTimerState extends State<AnimatedTimer>
   Widget build(BuildContext context) {
     var theme = Theme.of(context)
         .primaryTextTheme
-        .display1
+        .headline1
         .copyWith(fontSize: widget.size);
 
     if (_animation.hundred == 0 && _animation.ten == 0 && _animation.unit <= 5)

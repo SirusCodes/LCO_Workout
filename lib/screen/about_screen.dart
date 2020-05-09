@@ -53,7 +53,7 @@ class AboutScreen extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .display1
+                                          .headline1
                                           .copyWith(fontSize: _heightFact / 4),
                                     ),
                                   ),
@@ -72,7 +72,7 @@ class AboutScreen extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .primaryTextTheme
-                                            .display1
+                                            .headline1
                                             .copyWith(
                                               fontSize: _heightFact / 3,
                                               color: Colors.white,
@@ -175,7 +175,7 @@ class AboutScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .primaryTextTheme
-                  .display1
+                  .headline1
                   .copyWith(fontSize: _heightFact / 2),
             ),
           ),
@@ -189,7 +189,7 @@ class AboutScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .primaryTextTheme
-                    .display1
+                    .headline1
                     .copyWith(fontSize: _heightFact / 4),
               ),
             ),
@@ -219,7 +219,7 @@ class AboutScreen extends StatelessWidget {
           child: Text(
             "About",
             textAlign: TextAlign.center,
-            style: Theme.of(context).primaryTextTheme.display1,
+            style: Theme.of(context).primaryTextTheme.headline1,
           ),
         ),
         Expanded(child: Container())

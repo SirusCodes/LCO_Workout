@@ -76,7 +76,7 @@ class CDrawer extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)
                     .primaryTextTheme
-                    .display1
+                    .headline1
                     .copyWith(fontSize: size.height / 30),
               ),
             ],

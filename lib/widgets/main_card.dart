@@ -111,7 +111,7 @@ class _MainCardState extends State<MainCard>
                                     provider.currentExer,
                                     style: Theme.of(context)
                                         .primaryTextTheme
-                                        .display1
+                                        .headline1
                                         .copyWith(
                                             fontSize: widget.heightFact * .4),
                                     textAlign: TextAlign.center,
@@ -161,7 +161,7 @@ class _MainCardState extends State<MainCard>
                             "< Back",
                             style: Theme.of(context)
                                 .primaryTextTheme
-                                .display1
+                                .headline1
                                 .copyWith(
                                   color: Colors.white,
                                   fontSize: widget.heightFact * .4,
