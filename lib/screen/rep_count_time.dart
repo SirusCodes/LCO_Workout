@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lco_workout/animation_locator.dart';
-import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/enum/rep_count.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
@@ -70,6 +69,7 @@ class _RepCountScreenState extends State<RepCountScreen> {
                   raw: _rawList[_currentView],
                   exer: _exerList[_currentView],
                   heightFact: _heightFact,
+                  time: widget.timeList[_currentView],
                 ),
               ),
             ),
@@ -246,14 +246,17 @@ class ImageAndName extends StatelessWidget {
     @required String raw,
     @required String exer,
     @required double heightFact,
+    @required int time,
   })  : _raw = raw,
         _exer = exer,
         _heightFact = heightFact,
+        _time = time,
         super(key: key);
 
   final String _raw;
   final String _exer;
   final double _heightFact;
+  final int _time;
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +267,8 @@ class ImageAndName extends StatelessWidget {
           child: Image.asset(
             "assets/images/" + _raw,
             fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) =>
+                Image.asset("assets/logo.png"),
           ),
         ),
         Expanded(
@@ -281,8 +286,7 @@ class ImageAndName extends StatelessWidget {
                         .copyWith(fontSize: _heightFact),
                   ),
                   Text(
-                    "Seconds assigned per rep: " +
-                        DEFAULT_TIME[_raw].toString(),
+                    "Seconds assigned per rep: " + _time.toString(),
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .primaryTextTheme

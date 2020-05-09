@@ -102,7 +102,11 @@ class _MainCardState extends State<MainCard>
                         child: Stack(
                           alignment: Alignment.center,
                           children: <Widget>[
-                            Image.asset("assets/images/${animation.imgExer}"),
+                            Image.asset(
+                              "assets/images/${animation.imgExer}",
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.asset("assets/logo.png"),
+                            ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Consumer<AnimationGetIt>(

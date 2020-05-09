@@ -208,9 +208,11 @@ class _MainPageState extends State<MainPage> {
   _formatExercise(List<String> list) {
     _animation.rawList = list;
     for (var item in list) {
+      _time.add(DEFAULT_TIME.containsKey(item) ? DEFAULT_TIME[item] : 5);
       item = item.replaceAll("_", " ").replaceFirst(".png", "").toUpperCase();
       exerciseList.add(item);
     }
+
     _animation.exerciseList = exerciseList;
   }
 }
