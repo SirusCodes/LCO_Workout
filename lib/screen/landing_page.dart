@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/get_it/drawer_getit.dart';
 import 'package:lco_workout/screen/cdrawer.dart';
-import 'package:lco_workout/screen/main_screen.dart';
+import 'package:lco_workout/screen/random_or_daywise.dart';
 
 class LandingPage extends StatefulWidget {
   LandingPage({Key key}) : super(key: key);
@@ -63,7 +63,7 @@ class _LandingPageState extends State<LandingPage>
             Positioned.fill(
               top: _animation.value - 10,
               bottom: -(_animation.value - 10),
-              child: MainPage(),
+              child: RandomOrDaywise(),
             ),
             Positioned(
               top: -(_size.height / 3) + _animation.value - 10,

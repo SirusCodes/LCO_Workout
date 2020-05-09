@@ -6,15 +6,14 @@ import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
-import 'package:lco_workout/get_it/drawer_getit.dart';
 import 'package:lco_workout/screen/rep_count_time.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
 import 'package:lco_workout/widgets/shimmer_button.dart';
 import '../widgets/cneubutton.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key}) : super(key: key);
-
+  MainPage({Key key, this.list}) : super(key: key);
+  final List<String> list;
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -24,11 +23,13 @@ class _MainPageState extends State<MainPage> {
   List<int> _time = [];
 
   final _animation = locator<AnimationGetIt>();
-  final _drawer = locator<DrawerGetIt>();
   @override
   void initState() {
     super.initState();
-    getList();
+    if (widget.list == null)
+      getList();
+    else
+      _formatExercise(widget.list);
   }
 
   @override
@@ -46,24 +47,16 @@ class _MainPageState extends State<MainPage> {
             children: <Widget>[
               Expanded(
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset(
-                      "assets/logo.png",
-                      fit: BoxFit.cover,
-                    ),
-                    Spacer(),
                     FittedBox(
-                      fit: BoxFit.cover,
                       child: IconButton(
+                        splashColor: Theme.of(context).buttonColor,
                         icon: Icon(
-                          Icons.dehaze,
+                          Icons.arrow_back,
                           color: Theme.of(context).buttonColor,
-                          size: height / 2,
+                          size: height * .6,
                         ),
-                        onPressed: () {
-                          _drawer.animateDrawer();
-                        },
+                        onPressed: () => Navigator.pop(context),
                       ),
                     )
                   ],
@@ -209,6 +202,15 @@ class _MainPageState extends State<MainPage> {
       }
     }
     _animation.rawList = rawList;
+    _animation.exerciseList = exerciseList;
+  }
+
+  _formatExercise(List<String> list) {
+    _animation.rawList = list;
+    for (var item in list) {
+      item = item.replaceAll("_", " ").replaceFirst(".png", "").toUpperCase();
+      exerciseList.add(item);
+    }
     _animation.exerciseList = exerciseList;
   }
 }
