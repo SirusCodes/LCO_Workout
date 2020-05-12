@@ -6,6 +6,7 @@ import 'package:lco_workout/animation_locator.dart';
 import 'package:lco_workout/animations/fade_slide.dart';
 import 'package:lco_workout/constants.dart';
 import 'package:lco_workout/get_it/animation_getit.dart';
+import 'package:lco_workout/screen/exercise_detail.dart';
 import 'package:lco_workout/screen/rep_count_time.dart';
 import 'package:lco_workout/screen/sets_screen.dart';
 import 'package:lco_workout/widgets/shimmer_button.dart';
@@ -21,6 +22,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<String> exerciseList = [];
   List<int> _time = [];
+  List<String> _rawList = [];
 
   final _animation = locator<AnimationGetIt>();
   @override
@@ -87,27 +89,32 @@ class _MainPageState extends State<MainPage> {
                     children: <Widget>[
                       FadeSlide(
                         delay: 1.5,
-                        child: buildCard(context, exerciseList[0], _size),
+                        child: buildCard(
+                            context, exerciseList[0], _rawList[0], _size),
                         leftToRight: true,
                       ),
                       FadeSlide(
                         delay: 1.7,
-                        child: buildCard(context, exerciseList[1], _size),
+                        child: buildCard(
+                            context, exerciseList[1], _rawList[1], _size),
                         leftToRight: true,
                       ),
                       FadeSlide(
                         delay: 2.0,
-                        child: buildCard(context, exerciseList[2], _size),
+                        child: buildCard(
+                            context, exerciseList[2], _rawList[2], _size),
                         leftToRight: true,
                       ),
                       FadeSlide(
                         delay: 2.3,
-                        child: buildCard(context, exerciseList[3], _size),
+                        child: buildCard(
+                            context, exerciseList[3], _rawList[3], _size),
                         leftToRight: true,
                       ),
                       FadeSlide(
                         delay: 2.6,
-                        child: buildCard(context, exerciseList[4], _size),
+                        child: buildCard(
+                            context, exerciseList[4], _rawList[4], _size),
                         leftToRight: true,
                       ),
                     ],
@@ -162,23 +169,32 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Padding buildCard(BuildContext context, String title, Size size) {
+  Padding buildCard(BuildContext context, String title, String raw, Size size) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CNeuButton(
         color: Theme.of(context).primaryColor,
-        onPressed: () {},
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => ExerciseDetail(
+                      exercise: title,
+                      raw: raw,
+                    ))),
         child: SizedBox(
           height: size.height / 15,
           width: size.width,
           child: Center(
-            child: Text(
-              title,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .primaryTextTheme
-                  .headline1
-                  .copyWith(fontSize: size.height / 30),
+            child: Hero(
+              tag: raw,
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .headline1
+                    .copyWith(fontSize: size.height / 30),
+              ),
             ),
           ),
         ),
@@ -188,6 +204,7 @@ class _MainPageState extends State<MainPage> {
 
   void getList() {
     List<String> rawList = [];
+
     Random random = Random();
     int count = 5, i;
     while (count > 0) {
@@ -201,12 +218,14 @@ class _MainPageState extends State<MainPage> {
         count--;
       }
     }
+    _rawList = rawList;
     _animation.rawList = rawList;
     _animation.exerciseList = exerciseList;
   }
 
   _formatExercise(List<String> list) {
     _animation.rawList = list;
+    _rawList = list;
     for (var item in list) {
       _time.add(DEFAULT_TIME.containsKey(item) ? DEFAULT_TIME[item] : 5);
       item = item.replaceAll("_", " ").replaceFirst(".png", "").toUpperCase();
