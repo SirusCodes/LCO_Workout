@@ -53,6 +53,8 @@ flutter:
    - assets/
    - assets/images/
    - assets/music/
+
+   - assets/data/data.json
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

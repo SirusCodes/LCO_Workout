@@ -17,7 +17,7 @@ const List<String> legDay = [
   "romanian_deadlift.png",
   "barbell_side_lunges.png",
   "russian_dance.png",
-  "leg_extension.png",
+  "vrukshansana.png",
 ];
 
 const List<String> chestDay = [
@@ -29,7 +29,7 @@ const List<String> chestDay = [
 ];
 
 const List<String> backDay = [
-  "barbell_deadlift.png",
+  "romanian_deadlift.png",
   "back_streaching.png",
   "wide-grip_pull-up.png",
   "standing_t-bar_row.png",
