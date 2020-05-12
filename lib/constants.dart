@@ -57,7 +57,7 @@ const Map<String, int> DEFAULT_TIME = {
   "back_streaching.png": 3,
   "ball_plank.png": 0,
   "declined_crunches.png": 4,
-  "dumbell_curls.png": 3,
+  "dumbbell_curls.png": 3,
   "inclined_bench_press.png": 4,
   "jackknife_sit_ups.png": 4,
   "push_ups.png": 3,
