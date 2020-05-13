@@ -1,16 +1,27 @@
-# lco_workout
+# LCO Workout  
+![](https://img.shields.io/github/license/SirusCodes/LCO_Workout)
 
-A new Flutter project.
+Challenged by [Hitesh Chaudhary](https://youtu.be/VFrKjhcTAzE)
 
-## Getting Started
+## Features 
+ - Details about exercise 
+ - Custom rep counts
+ - Custom set counts
+ - Exercises separated as daywise 
+ - Music automatically starts when exercise starts
+ 
+## Example
+<div>
+<img src='Example/LCO_Workout.mp4' width='400'>
+</div>
 
-This project is a starting point for a Flutter application.
+## Contributions
+Contributions are always welcome kindly check [CONTRIBUTING.md](https://github.com/SirusCodes/LCO_Workout/blob/master/CONTRIBUTING.md)
 
-A few resources to get you started if this is your first Flutter project:
+## Download
+<a href='https://github.com/SirusCodes/LCO_Workout/releases/download/1.0/LCO_Workout_v1.0.apk'>
+<img alt='Download from release' src='https://www.inspirefm.org/wp-content/uploads/button-apk.png' width=200>
+</a>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Developer
+Darshan Rander - [LinkedIn](https://www.linkedin.com/in/darshan-rander-b28a3b193/)
