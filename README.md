@@ -12,7 +12,11 @@ Challenged by [Hitesh Chaudhary](https://youtu.be/VFrKjhcTAzE)
  
 ## Example
 <div>
-<img src='Example/LCO_Workout.mp4' width='400'>
+<img src='Example/home.png' width='200'>
+<img src='Example/main.png' width='200'>
+<img src='Example/rep_count.png' width='200'>
+<img src='Example/set_count.png' width='200'>
+<img src='Example/exercise.png' width='200'>
 </div>
 
 ## Contributions
